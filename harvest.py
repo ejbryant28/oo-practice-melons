@@ -5,18 +5,11 @@
 
 class MelonType(object):
     """A species of melon at a melon farm."""
-    reporting_code = None
-    name = None
-    first_harvest = None
-    color = None
-    pairs = []
-    seeds = False
-    is_bestseller = False
 
 
-    def __init__(self, code, first_harvest, color, is_seedless, is_bestseller, 
-                 name):
+    def __init__(self, name, code, first_harvest, color, is_seedless, is_bestseller):
         """Initialize a melon."""
+        self.name = name
         self.reporting_code = code
         self.first_harvest = first_harvest
         self.color = color
@@ -37,6 +30,8 @@ class MelonType(object):
 
         self.reporting_code = new_code
 
+    def __repr__(self):
+        return (f'{self.name}')
 
 
 
@@ -45,39 +40,51 @@ def make_melon_types():
 
     all_melon_types = []
 
-    musk = MelonType('musk', 'Muskmelon', 1998, 'green', True, True)
+    musk = MelonType('Muskmelon', 'musk', 1998, 'green', True, True)
     musk.add_pairing('mint') 
     all_melon_types.append(musk)
 
-    casaba = MelonType('cas', "Casaba", 2003, 'orange', False, False)
+    casaba = MelonType("Casaba", 'cas', 2003, 'orange', False, False)
     casaba.add_pairing('strawberries')
     casaba.add_pairing('mint')
     all_melon_types.append(casaba)
 
-    crenshaw = MelonType('cren', 'Crenshaw', 1996, 'green', False, False)
+    crenshaw = MelonType('Crenshaw', 'cren', 1996, 'green', False, False)
     crenshaw.add_pairing('proscuitto')
     all_melon_types.append(crenshaw)
 
-    yellow_watermelon = MelonType('yw', "Yellow Watermelon", 2013, 'yellow', False, True)
+    yellow_watermelon = MelonType("Yellow Watermelon", 'yw', 2013, 'yellow', False, True)
     yellow_watermelon.add_pairing('ice cream')
     all_melon_types.append(yellow_watermelon)
 
     return all_melon_types
 
-make_melon_types()
-# print (musk.name) 
-# print (casaba.name) 
-
 
 def print_pairing_info(melon_types):
     """Prints information about each melon type's pairings."""
     for melon in melon_types:
-        print("{melon} pairs with /n {pairs}".format(melon = self.name))
+        print(f"{melon.name} pairs with")
+        for food in melon.pairs:
+            print(f'- {food}')
+
 
 def make_melon_type_lookup(melon_types):
     """Takes a list of MelonTypes and returns a dictionary of melon type by code."""
 
     # Fill in the rest
+    melon_dictioary = {}
+    #keys- reporting codes
+    #values- instance
+
+    for melon in melon_types:
+        melon_dictioary[melon.reporting_code] = melon
+
+    return melon_dictioary
+
+
+
+print(make_melon_type_lookup(make_melon_types()))
+
 
 ############
 # Part 2   #
@@ -88,6 +95,7 @@ class Melon(object):
 
     # Fill in the rest
     # Needs __init__ and is_sellable methods
+    
 
 def make_melons(melon_types):
     """Returns a list of Melon objects."""
